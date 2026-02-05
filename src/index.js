@@ -6,17 +6,17 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
+// 1. Middlewares
 app.use(cors());
-app.use(express.json()); // Permite leer JSON en las peticiones
+app.use(express.json());
 
-// Rutas
+// 2. Servir archivos estáticos (IMPORTANTE: Debe ir antes de las rutas "/" si quieres ver tu HTML)
+app.use(express.static('public'));
+
+// 3. Rutas de la API
 app.use('/api', giftRoutes);
 
-app.get('/', (req, res) => {
-  res.send('API de Wishlist para el Ing. Andrés funcionando 🚀');
-});
-
+// 4. Iniciar servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
