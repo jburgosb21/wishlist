@@ -3,13 +3,7 @@ async function cargarRegalos() {
     try {
         const respuesta = await fetch('/api/regalos');
         const regalos = await respuesta.json();
-
         contenedor.innerHTML = ''; 
-
-        if (regalos.length === 0) {
-            contenedor.innerHTML = '<p>Aún no hay regalos en la lista.</p>';
-            return;
-        }
 
         regalos.forEach(regalo => {
             const card = document.createElement('div');
@@ -24,9 +18,26 @@ async function cargarRegalos() {
             contenedor.appendChild(card);
         });
     } catch (error) {
-        console.error("Error:", error);
-        contenedor.innerHTML = '<p>Error al conectar con el servidor.</p>';
+        contenedor.innerHTML = '<p>Error al cargar la lista.</p>';
     }
+}
+
+async function guardarRegalo() {
+    const nombre = document.getElementById('nombre').value;
+    const link = document.getElementById('link').value;
+    const precio = document.getElementById('precio').value;
+
+    await fetch('/api/regalos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre, link, precio, user_id: 1 })
+    });
+
+    // Limpiar campos y recargar
+    document.getElementById('nombre').value = '';
+    document.getElementById('link').value = '';
+    document.getElementById('precio').value = '';
+    cargarRegalos();
 }
 
 cargarRegalos();

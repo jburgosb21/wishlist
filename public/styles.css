@@ -1,4 +1,18 @@
-/* Estilos para el Formulario de entrada */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #eef2f3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
 .form-container {
     background: white;
     padding: 25px;
@@ -8,13 +22,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    max-width: 800px;
+    max-width: 600px;
     width: 100%;
-}
-
-.form-container h3 {
-    margin-top: 0;
-    color: #2c3e50;
 }
 
 .form-container input {
@@ -22,12 +31,6 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.form-container input:focus {
-    border-color: #3498db;
 }
 
 .form-container button {
@@ -38,10 +41,31 @@
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 1rem;
-    transition: background 0.3s;
 }
 
-.form-container button:hover {
-    background-color: #2980b9;
+.container {
+    max-width: 600px;
+    width: 100%;
+}
+
+.regalo-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.precio {
+    font-size: 1.3rem;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
 }

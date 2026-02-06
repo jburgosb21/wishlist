@@ -8,9 +8,18 @@
 </head>
 <body>
     <h1>🎁 Lista de Deseos - Ing. Andrés</h1>
+
+    <div class="form-container">
+        <h3>Añadir Nuevo Regalo</h3>
+        <input type="text" id="nombre" placeholder="Nombre del regalo">
+        <input type="text" id="link" placeholder="Enlace (https://...)">
+        <input type="number" id="precio" placeholder="Precio">
+        <button onclick="guardarRegalo()">Guardar Deseo</button>
+    </div>
     
     <div class="container" id="lista-regalos">
-        </div>
+        <p>Cargando regalos...</p>
+    </div>
 
     <script src="script.js"></script>
 </body>

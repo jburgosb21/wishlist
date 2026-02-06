@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// 2. Servir archivos estáticos (IMPORTANTE: Debe ir antes de las rutas "/" si quieres ver tu HTML)
+// 2. Servir archivos estáticos de la carpeta 'public'
 app.use(express.static('public'));
 
 // 3. Rutas de la API
