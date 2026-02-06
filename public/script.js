@@ -55,11 +55,9 @@ async function guardarRegalo() {
         });
 
         if (respuesta.ok) {
-            // Limpiar campos
             document.getElementById('nombre').value = '';
             document.getElementById('link').value = '';
             document.getElementById('precio').value = '';
-            // Recargar lista
             await cargarRegalos();
         } else {
             alert("Error al guardar el regalo");
@@ -74,11 +72,16 @@ async function eliminarRegalo(id) {
 
     try {
         const respuesta = await fetch(`/api/regalos/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
         });
 
         if (respuesta.ok) {
-            cargarRegalos(); // Recargamos la lista automáticamente
+            console.log("Regalo eliminado id:", id);
+            await cargarRegalos(); 
+        } else {
+            const errorData = await respuesta.json();
+            alert("Error del servidor: " + errorData.error);
         }
     } catch (error) {
         console.error("Error al eliminar:", error);
