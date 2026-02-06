@@ -1,11 +1,8 @@
 async function cargarRegalos() {
     const contenedor = document.getElementById('lista-regalos');
     try {
-        // Usamos la ruta completa para evitar errores de dirección
-        const respuesta = await fetch(window.location.origin + '/api/regalos');
+        const respuesta = await fetch('/api/regalos');
         const regalos = await respuesta.json();
-        
-        console.log("Datos recibidos:", regalos); // Esto te ayudará a ver errores en la consola (F12)
 
         contenedor.innerHTML = ''; 
 
@@ -20,15 +17,52 @@ async function cargarRegalos() {
             card.innerHTML = `
                 <div class="info">
                     <strong>${regalo.nombre}</strong><br>
-                    <a href="${regalo.link}" target="_blank">Ver tienda 🔗</a>
+                    <a href="${regalo.link}" target="_blank">Ver en tienda 🔗</a>
                 </div>
-                <div class="precio">$${regalo.precio}</div>
+                <div class="precio">$${parseFloat(regalo.precio).toFixed(2)}</div>
             `;
             contenedor.appendChild(card);
         });
     } catch (error) {
-        console.error("Error en Fetch:", error);
+        console.error("Error al cargar:", error);
         contenedor.innerHTML = '<p>Error al conectar con la base de datos.</p>';
+    }
+}
+
+async function guardarRegalo() {
+    const nombre = document.getElementById('nombre').value;
+    const link = document.getElementById('link').value;
+    const precio = document.getElementById('precio').value;
+
+    if (!nombre || !link || !precio) {
+        alert("Por favor, llena todos los campos");
+        return;
+    }
+
+    try {
+        const respuesta = await fetch('/api/regalos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                nombre, 
+                link, 
+                precio: parseFloat(precio), 
+                user_id: 1 
+            })
+        });
+
+        if (respuesta.ok) {
+            // Limpiar campos
+            document.getElementById('nombre').value = '';
+            document.getElementById('link').value = '';
+            document.getElementById('precio').value = '';
+            // Recargar lista
+            await cargarRegalos();
+        } else {
+            alert("Error al guardar el regalo");
+        }
+    } catch (error) {
+        console.error("Error al enviar:", error);
     }
 }
 
