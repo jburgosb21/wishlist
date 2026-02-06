@@ -24,4 +24,15 @@ const createGift = async (req, res) => {
   }
 };
 
-module.exports = { getAllGifts, createGift };
+// Eliminar un regalo
+const deleteGift = async (req, res) => {
+  const { id } = req.params; // Obtenemos el ID de la URL
+  try {
+    await pool.query('DELETE FROM regalos WHERE id = $1', [id]);
+    res.json({ message: "Regalo eliminado correctamente" });
+  } catch (err) {
+    res.status(500).json({ error: "Error al eliminar el regalo" });
+  }
+};
+
+module.exports = { getAllGifts, createGift, deleteGift };

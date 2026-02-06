@@ -8,4 +8,7 @@ router.get('/regalos', giftController.getAllGifts);
 // Ruta para crear un nuevo regalo: POST /api/regalos
 router.post('/regalos', giftController.createGift);
 
+// Ruta para eliminar: DELETE /api/regalos/:id
+router.delete('/regalos/:id', giftController.deleteGift);
+
 module.exports = router;

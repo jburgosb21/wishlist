@@ -19,7 +19,10 @@ async function cargarRegalos() {
                     <strong>${regalo.nombre}</strong><br>
                     <a href="${regalo.link}" target="_blank">Ver en tienda 🔗</a>
                 </div>
-                <div class="precio">$${parseFloat(regalo.precio).toFixed(2)}</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="precio">$${parseFloat(regalo.precio).toFixed(2)}</div>
+                    <button onclick="eliminarRegalo(${regalo.id})" class="btn-delete">🗑️</button>
+                </div>
             `;
             contenedor.appendChild(card);
         });
@@ -63,6 +66,22 @@ async function guardarRegalo() {
         }
     } catch (error) {
         console.error("Error al enviar:", error);
+    }
+}
+
+async function eliminarRegalo(id) {
+    if (!confirm("¿Seguro que quieres eliminar este regalo?")) return;
+
+    try {
+        const respuesta = await fetch(`/api/regalos/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (respuesta.ok) {
+            cargarRegalos(); // Recargamos la lista automáticamente
+        }
+    } catch (error) {
+        console.error("Error al eliminar:", error);
     }
 }
 
